@@ -359,9 +359,9 @@ func LevelTraverseTree(root* Tree) {
 }
 
 //输出每层中的第一个节点
-func LevelFirstNode(root* Tree)  {
+func LevelFirstNode(root* Tree)  (high int){
 	if root ==nil {
-		return
+		return 0
 	}
 	/*           1
 	2                  3
@@ -373,6 +373,7 @@ func LevelFirstNode(root* Tree)  {
 	var m = make(map[int] bool)
 	var q = NewQueue()
 	root.Level = 1
+	high = 1
 	q.Enqueue(root)
 	m[root.Level] = true
 	for ; q.IsEmpty() == false ;  {
@@ -385,17 +386,37 @@ func LevelFirstNode(root* Tree)  {
 			tmpNode.LChild.Level = tmpNode.Level + 1
 			q.Enqueue(tmpNode.LChild)
 			m[tmpNode.LChild.Level] = true
+			if tmpNode.LChild.Level > high {
+				high = tmpNode.LChild.Level
+			}
 		}
 		
 		if tmpNode.RChild != nil {
 			tmpNode.RChild.Level = tmpNode.Level + 1
 			q.Enqueue(tmpNode.RChild)
 			m[tmpNode.RChild.Level] = true
+			if tmpNode.RChild.Level > high {
+				high = tmpNode.RChild.Level
+			}
 		}
 	}
-	fmt.Println("")
+	fmt.Println(" high:", high)
+	return
+	
 }
 
+func GetTreeHigh(t * Tree)  (high int){
+	if t == nil {
+		return
+	}
+	
+	var leftHigh = GetTreeHigh(t.LChild)
+	var rightHigh = GetTreeHigh(t.RChild)
+	if leftHigh > rightHigh {
+		return leftHigh + 1
+	}
+	return rightHigh + 1
+}
 
 
 func main() {
@@ -416,4 +437,8 @@ func main() {
 
 	LevelFirstNode(root2)
 	LevelFirstNode(root)
+	
+	// 6. 树的高度
+	fmt.Println("root2 high: ", GetTreeHigh(root2))
+	fmt.Println("root high:", GetTreeHigh(root))
 }
