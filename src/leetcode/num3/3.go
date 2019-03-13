@@ -1,6 +1,9 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"unsafe"
+)
 
 //在一个二维数组中（每个一维数组的长度相同），
 //每一行都按照从左到右递增的顺序排序，
@@ -12,9 +15,9 @@ import "fmt"
 func action(target int, array [][]int) bool {
 	var row = len(array)
 	var lines = len(array[0])
-	var j = lines -1
+	var j = lines - 1
 	var i = 0
-	for ; i < row && j >= 0;  {
+	for i < row && j >= 0 {
 		if array[i][j] == target {
 			fmt.Println(target, "yes in array")
 			return true
@@ -27,28 +30,68 @@ func action(target int, array [][]int) bool {
 			i++
 			continue
 		}
-		
-		
+
 	}
-	Print2DArray(array)
+	//Print2DArray(array)
 	fmt.Println("row:", row, " line:", lines, " target:", target, " in array?", false)
 	return false
 }
 
+// 二进制1的个数
 
+func action2(n int) {
+	//	n&(n-1) 操作相当于把二进制表示中最右边的1变成0
+	var originNum = n
+	var count = 0
+	for n != 0 {
+		n = n & (n - 1)
+		count++
 
+	}
 
+	fmt.Printf(" way1 num:%d, binary:%b  include  %d个1\n", originNum, originNum, count)
 
-func main()  {
+	// way2
+	var num = originNum
+	var count2 = 0
+	for num != 0 {
+		count2 = count2 + num&1
+		num = num >> 1
+	}
+	fmt.Printf(" way2 num:%d, binary:%b  include  %d个1\n", originNum, originNum, count2)
+}
+
+// 大端小端
+
+func endian() {
+	
+	
+	const INT_SIZE int = int(unsafe.Sizeof(0))
+	var i int = 0x1   // 0000 0000 0000 0001(大端， 低地址存储高位)   1000 0000 0000 0000(小端, 低地址存储低位)
+	bs := (*[INT_SIZE]byte)(unsafe.Pointer(&i))
+	fmt.Println("INT_SIZE:", INT_SIZE)
+	if bs[0] == 0 {
+		fmt.Println("system edian is little endian")
+	} else {
+		fmt.Println("system edian is big endian")
+	}
+	
+
+}
+
+func main() {
 	fmt.Println("hello world")
-	var arrary = [][]int {
+	var arrary = [][]int{
 		{1, 3, 5, 8},
 		{2, 4, 8, 19},
 		{7, 9, 10, 29},
 	}
 	action(2, arrary)
 	action(11, arrary)
-	
+
+	action2(301)
+
+	endian()
 }
 
 func Print2DArray(array [][]int) {
@@ -64,5 +107,3 @@ func Print2DArray(array [][]int) {
 		fmt.Println("")
 	}
 }
-
-
