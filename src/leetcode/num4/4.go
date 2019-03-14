@@ -487,14 +487,21 @@ func main() {
 	LevelFirstNode(root)
 	
 	// 6. 树的高度
-	fmt.Println("root2 high: ", GetTreeHigh(root2))
-	fmt.Println("root high:", GetTreeHigh(root))
+	//fmt.Println("root2 high: ", GetTreeHigh(root2))
+	//fmt.Println("root high:", GetTreeHigh(root))
 	
 	
 	// 7. z字遍历
-	ZigZagTree(root2)
-	ZigZagTree(root)
+	//ZigZagTree(root2)
+	//ZigZagTree(root)
+	
+	// 8. 树的子结构
 	
 	
+	// 9.重建二叉树
+	
+	// 10. 二叉树镜像
+	
+	// 11.
 	
 }
