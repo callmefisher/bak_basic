@@ -11,7 +11,7 @@ import (
 // 栈
 //队列
 
-// 前序递归遍历，中序递归遍历, 前/中/后序非递归， 层次遍历, 输出二叉树每一层的第一个节点,树的高度
+// 前序递归遍历，中序递归遍历, 前/中/后序非递归， 层次遍历, 输出二叉树每一层的第一个节点,树的高度, zigzag遍历
 
 type Tree struct {
 	Val    int
@@ -418,6 +418,54 @@ func GetTreeHigh(t * Tree)  (high int){
 	return rightHigh + 1
 }
 
+func ZigZagTree(t * Tree)  {
+	if t == nil {
+		return
+	}
+	var s1 = NewStack()
+	var s2 = NewStack()
+	t.Level = 1
+	s1.Push(t)
+	
+	for {
+		if s1.IsEmpty() && s2.IsEmpty() {
+			break
+		}
+		
+		// s1
+		for ; s1.IsEmpty() == false; {
+			
+			var v1, _= s1.Pop()
+			var tmpNode1= v1.(*Tree)
+			fmt.Print(tmpNode1.Val, " ", )
+			
+			if tmpNode1.LChild != nil {
+				s2.Push(tmpNode1.LChild)
+			}
+			if tmpNode1.RChild != nil {
+				s2.Push(tmpNode1.RChild)
+			}
+		}
+		
+		// s2
+		for ; s2.IsEmpty() == false; {
+			
+			var v2, _= s2.Pop()
+			var tmpNode2= v2.(*Tree)
+			fmt.Print(tmpNode2.Val, " ", )
+			if tmpNode2.RChild != nil {
+				s1.Push(tmpNode2.RChild)
+			}
+			if tmpNode2.LChild != nil {
+				s1.Push(tmpNode2.LChild)
+			}
+			
+		}
+	}
+	
+	fmt.Println("")
+}
+
 
 func main() {
 	var root = createTree()
@@ -441,4 +489,12 @@ func main() {
 	// 6. 树的高度
 	fmt.Println("root2 high: ", GetTreeHigh(root2))
 	fmt.Println("root high:", GetTreeHigh(root))
+	
+	
+	// 7. z字遍历
+	ZigZagTree(root2)
+	ZigZagTree(root)
+	
+	
+	
 }
