@@ -9,7 +9,7 @@ type LinkNode struct {
 }
 
 func CreateLinkList(arr[]int) *LinkNode  {
-	var head = &LinkNode{}
+	var head = &LinkNode{Val:"Head"}
 	var p = head
 	for i:= 0; i < len(arr) ; i++ {
 		var tmpNode = &LinkNode{Val:arr[i]}
@@ -20,7 +20,7 @@ func CreateLinkList(arr[]int) *LinkNode  {
 }
 
 func PrintLinkList(h* LinkNode)  {
-	for p := h.Next; p != nil ; p = p.Next {
+	for p := h; p != nil ; p = p.Next {
 		if p.Next == nil {
 			fmt.Print(p.Val, "  ")
 		} else {
@@ -36,7 +36,7 @@ func ReverseList(h *LinkNode)  {
 	if h == nil {
 		return
 	}
-	fmt.Println("====")
+	
 	var p = h
 	var q = h.Next
 	p.Next = nil
@@ -46,8 +46,8 @@ func ReverseList(h *LinkNode)  {
 		p = q
 		q = front
 	}
-	h = p
-	
+	h = p 
+	fmt.Println("ppp1:", h)
 }
 
 
@@ -55,6 +55,8 @@ func ReverseList(h *LinkNode)  {
 func main() {
 	var l1 = CreateLinkList([]int{1, 2, 3, 4})
 	PrintLinkList(l1)
-	ReverseList(l1)
+	 ReverseList(l1)
+	fmt.Println("ppp2:", l1, " ")
 	PrintLinkList(l1)
+	//PrintLinkList(l2)
 }
