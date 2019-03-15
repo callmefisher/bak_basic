@@ -534,6 +534,7 @@ func ReverseTree2(root* Tree)  {
 			q.Enqueue(tmpNode.RChild)
 		}
 		if canSwap1 && canSwap2 {
+			fmt.Println("swap root:", tmpNode.Val, " left:", tmpNode.LChild.Val, " right:", tmpNode.RChild.Val)
 			var tmpLChild = tmpNode.LChild
 			tmpNode.LChild = tmpNode.RChild
 			tmpNode.RChild = tmpLChild
@@ -541,6 +542,49 @@ func ReverseTree2(root* Tree)  {
 		
 	}
 }
+
+func getIndex(arr[]int, target int)  int {
+	for i := 0; i < len(arr); i++ {
+		if arr[i] == target {
+			return i
+		}
+	}
+	return -1
+}
+
+func testAvail(preOrder []int, middleOrder []int) bool {
+	var m = make(map[int]bool)
+	for i:=0 ; i < len(preOrder); i++ {
+		m[preOrder[i]] = true
+	}
+	
+	for j := 0; j < len(middleOrder); j++ {
+		delete(m, middleOrder[j])
+	}
+	
+	return len(m) == 0
+}
+
+
+// 递归，根据前序确认根，根据中序确认左右节点
+func CreateTreeByPreANdMiddle(preOrder []int, middleOrder[]int) (root* Tree) {
+	if len(preOrder) == 0 || len(middleOrder) == 0 || len(middleOrder) != len(preOrder) || !testAvail(preOrder, middleOrder) {
+		return nil
+	}
+	var index = getIndex(middleOrder, preOrder[0])
+	if index == -1 {
+		return nil
+	}
+	
+	root = &Tree{Val:preOrder[0]}
+	// 左子树
+	root.LChild = CreateTreeByPreANdMiddle(preOrder[1:1+index], middleOrder[0:index])
+	//右子树
+	root.RChild = CreateTreeByPreANdMiddle(preOrder[index+1:], middleOrder[index + 1:])
+	return
+}
+
+
 
 
 
@@ -581,16 +625,40 @@ func main() {
 	// 2. 第二层， A树的子节点等于B树的子节点，则继续第二层的递归，扩展到A, B树的左右节点。
 	//否则返回false, 既B树不是A树的子树
 	
-	// 9.前序和中序重建二叉树
+	// 9.前序和中序重建二叉树，
+	var root3 = CreateTreeByPreANdMiddle(
+		[]int{1, 2, 4, 3 , 6, 7, 8, 9 , 10, },
+		[]int{2, 4, 1, 6,  3, 7, 9, 8, 10,})
 	
+	PrintTreeDetail(root3)
 	
 	// 10. 二叉树镜像，反转二叉树， 借助递归或者队列，顺次交换node的左右节点
 	//ReverseTree1(root2)
-	//ReverseTree2(root2)
+	ReverseTree2(root2)
 	//LevelTraverseTree(root2)
 	
 	// 11. 有序数组重建二叉树
-	
-	
-	
+
+}
+
+func PrintTreeDetail(root *Tree)  {
+	if root == nil {
+		return
+	}
+	var  q = NewQueue()
+	q.Enqueue(root)
+	for ;q.IsEmpty() != true ;  {
+		var tmpNode = q.Dequeue().(*Tree)
+		fmt.Println("\n\nroot:", tmpNode.Val)
+		if tmpNode.LChild != nil {
+			fmt.Print(" lchild: ", tmpNode.LChild.Val)
+			q.Enqueue(tmpNode.LChild)
+		}
+		if tmpNode.RChild != nil {
+			fmt.Print(" rchild: ", tmpNode.RChild.Val)
+			q.Enqueue(tmpNode.RChild)
+		}
+		
+		
+	}
 }

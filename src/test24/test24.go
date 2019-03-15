@@ -35,6 +35,9 @@ func stopCPUProfile() {
 
 func main() {
 	
+	var arrar =[]int{1, 2, 3, 4}
+	fmt.Println(arrar[1:3])
+	
 	var now = time.Now()
 	fmt.Println("sec:", now.IsZero())
 	
@@ -62,8 +65,13 @@ func main() {
 
 	
 	
-	//var arrar =[]int{1, 2, 3, 4}
+
 	var startNano = time.Now().UnixNano()
 	//_  = arrar[0]
 	fmt.Println(time.Now().UnixNano() - startNano)
+	
+
+	
+	
+	
 }
