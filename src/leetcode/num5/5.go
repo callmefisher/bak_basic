@@ -27,13 +27,34 @@ func PrintLinkList(h* LinkNode)  {
 			fmt.Print(p.Val, " -> ")
 		}
 	}
+	fmt.Println("")
 }
 
 
 //1. 反转单链表
+func ReverseList(h *LinkNode)  {
+	if h == nil {
+		return
+	}
+	fmt.Println("====")
+	var p = h
+	var q = h.Next
+	p.Next = nil
+	for ;q != nil ;  {
+		var front = q.Next
+		q.Next = p
+		p = q
+		q = front
+	}
+	h = p
+	
+}
+
 
 
 func main() {
 	var l1 = CreateLinkList([]int{1, 2, 3, 4})
+	PrintLinkList(l1)
+	ReverseList(l1)
 	PrintLinkList(l1)
 }
