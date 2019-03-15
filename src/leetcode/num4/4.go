@@ -584,7 +584,22 @@ func CreateTreeByPreANdMiddle(preOrder []int, middleOrder[]int) (root* Tree) {
 	return
 }
 
-
+func CreateTreeByOrderedArray(arr[]int )(root* Tree) {
+	var arrLen = len(arr)
+	if arrLen == 0 {
+		return nil
+	}
+	if arrLen == 1 {
+		root = &Tree{Val:arr[0]}
+		return
+	}
+	var middleValue = arr[arrLen / 2]
+	root = &Tree{Val:middleValue}
+	root.LChild = CreateTreeByOrderedArray(arr[0:arrLen / 2 ])
+	root.RChild = CreateTreeByOrderedArray(arr[arrLen / 2 + 1 :])
+	
+	return
+}
 
 
 
@@ -626,11 +641,11 @@ func main() {
 	//否则返回false, 既B树不是A树的子树
 	
 	// 9.前序和中序重建二叉树，
-	var root3 = CreateTreeByPreANdMiddle(
+	var _ = CreateTreeByPreANdMiddle(
 		[]int{1, 2, 4, 3 , 6, 7, 8, 9 , 10, },
 		[]int{2, 4, 1, 6,  3, 7, 9, 8, 10,})
 	
-	PrintTreeDetail(root3)
+	//PrintTreeDetail(root3)
 	
 	// 10. 二叉树镜像，反转二叉树， 借助递归或者队列，顺次交换node的左右节点
 	//ReverseTree1(root2)
@@ -638,7 +653,9 @@ func main() {
 	//LevelTraverseTree(root2)
 	
 	// 11. 有序数组重建二叉树
-
+	var root4 = CreateTreeByOrderedArray([]int{1, 2, 3, 4, 5, 6, 8, 9})
+	fmt.Println("root4:", root4)
+	PrintTreeDetail(root4)
 }
 
 func PrintTreeDetail(root *Tree)  {
