@@ -5,7 +5,7 @@ import "sync"
 import (
 	"container/list"
 	"errors"
-)
+	)
 
 //二叉搜索树第k个结点
 // 栈
@@ -97,6 +97,18 @@ func (q *Queue) Dequeue() interface{}{
 func (q* Queue) IsEmpty() bool{
 	return q.L.Len() == 0
 }
+func (q* Queue)Len() int {
+	return q.L.Len()
+}
+func (q* Queue)Front() interface{} {
+	q.lock.Lock()
+	defer q.lock.Unlock()
+	if q.L.Len() > 0 {
+		return q.L.Front().Value
+	}
+	return nil
+}
+
 
 func test() {
 	fmt.Println("\nStack=================")
@@ -359,6 +371,32 @@ func LevelTraverseTree(root* Tree) {
 }
 
 //输出每层中的第一个节点
+func LevelFirstNodeWay2(root *Tree) (high int) {
+	if root == nil {
+		return 0
+	}
+	var q = NewQueue()
+	q.Enqueue(root)
+	
+	for  q.IsEmpty() != true  {
+		var levelLen = q.Len()
+		for i:= 0; i < levelLen; i++ {
+			var tmpNode = q.Dequeue().(*Tree)
+			if i == 0{
+				fmt.Print(tmpNode.Val, " ")
+			}
+			if tmpNode.LChild != nil {
+				q.Enqueue(tmpNode.LChild)
+			}
+			if tmpNode.RChild != nil {
+				q.Enqueue(tmpNode.RChild)
+			}
+		}
+		high = high + 1
+	}
+	fmt.Println(" high:", high)
+	return
+}
 func LevelFirstNode(root* Tree)  (high int){
 	if root ==nil {
 		return 0
@@ -466,6 +504,22 @@ func ZigZagTree(t * Tree)  {
 	fmt.Println("")
 }
 
+func ReverseTree1(root* Tree)  {
+	if root == nil {
+		return
+	}
+	var tmpNode = root.LChild
+	root.LChild = root.RChild
+	root.RChild = tmpNode
+	ReverseTree1(root.LChild)
+	ReverseTree1(root.RChild)
+}
+
+func ReverseTree2(root* Tree)  {
+
+}
+
+
 
 func main() {
 	var root = createTree()
@@ -483,9 +537,11 @@ func main() {
 	
 	// 5. 层次中的第一个节点输出
 
-	LevelFirstNode(root2)
-	LevelFirstNode(root)
+	//LevelFirstNode(root2)
+	//LevelFirstNode(root)
 	
+	LevelFirstNodeWay2(root2)
+	LevelFirstNodeWay2(root)
 	// 6. 树的高度
 	//fmt.Println("root2 high: ", GetTreeHigh(root2))
 	//fmt.Println("root high:", GetTreeHigh(root))
@@ -495,13 +551,21 @@ func main() {
 	//ZigZagTree(root2)
 	//ZigZagTree(root)
 	
-	// 8. 树的子结构
+	// 8. 树的子结构， 判断B树是不是A树的一颗子树
+	// 双层递归
+	// 1. 第一层, A树的节点等于B树的节点，调用第二层递归，否则，则继续第一层 递归，分别向父树的左右节点扩展
+	// a->lchild, b || a->right, b
+	// 2. 第二层， A树的子节点等于B树的子节点，则继续第二层的递归，扩展到A, B树的左右节点。
+	//否则返回false, 既B树不是A树的子树
+	
+	// 9.前序和中序重建二叉树
+	
+	// 10. 二叉树镜像，反转二叉树
+	ReverseTree1(root2)
+	LevelTraverseTree(root2)
+	
+	// 11. 有序数组重建二叉树
 	
 	
-	// 9.重建二叉树
-	
-	// 10. 二叉树镜像
-	
-	// 11.
 	
 }
