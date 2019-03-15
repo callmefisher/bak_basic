@@ -32,9 +32,9 @@ func PrintLinkList(h* LinkNode)  {
 
 
 //1. 反转单链表
-func ReverseList(h *LinkNode)  {
+func ReverseList(h *LinkNode)  *LinkNode{
 	if h == nil {
-		return
+		return nil
 	}
 	
 	var p = h
@@ -46,17 +46,17 @@ func ReverseList(h *LinkNode)  {
 		p = q
 		q = front
 	}
-	h = p 
-	fmt.Println("ppp1:", h)
+	h = p
+	return h
 }
+
+
 
 
 
 func main() {
 	var l1 = CreateLinkList([]int{1, 2, 3, 4})
 	PrintLinkList(l1)
-	 ReverseList(l1)
-	fmt.Println("ppp2:", l1, " ")
-	PrintLinkList(l1)
-	//PrintLinkList(l2)
+	var l2 = ReverseList(l1)
+	PrintLinkList(l2)
 }
