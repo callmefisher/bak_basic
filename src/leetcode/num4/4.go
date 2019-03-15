@@ -516,7 +516,30 @@ func ReverseTree1(root* Tree)  {
 }
 
 func ReverseTree2(root* Tree)  {
-
+	if root == nil {
+		return
+	}
+	var q = NewQueue()
+	q.Enqueue(root)
+	
+	for ;q.IsEmpty() != true ;  {
+		var tmpNode = q.Dequeue().(*Tree)
+		var canSwap1,canSwap2  = false, false
+		if tmpNode.LChild != nil {
+			canSwap1 = true
+			q.Enqueue(tmpNode.LChild)
+		}
+		if tmpNode.RChild != nil {
+			canSwap2 = true
+			q.Enqueue(tmpNode.RChild)
+		}
+		if canSwap1 && canSwap2 {
+			var tmpLChild = tmpNode.LChild
+			tmpNode.LChild = tmpNode.RChild
+			tmpNode.RChild = tmpLChild
+		}
+		
+	}
 }
 
 
@@ -560,9 +583,11 @@ func main() {
 	
 	// 9.前序和中序重建二叉树
 	
-	// 10. 二叉树镜像，反转二叉树
-	ReverseTree1(root2)
-	LevelTraverseTree(root2)
+	
+	// 10. 二叉树镜像，反转二叉树， 借助递归或者队列，顺次交换node的左右节点
+	//ReverseTree1(root2)
+	//ReverseTree2(root2)
+	//LevelTraverseTree(root2)
 	
 	// 11. 有序数组重建二叉树
 	
