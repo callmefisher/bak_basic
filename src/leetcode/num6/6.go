@@ -58,8 +58,40 @@ func MaxSubArray(arr []int) []int {
 // 下面给出一个可能的旋转结果。 如{4,5,6.7.8,9.1.2.3}，我们可以理解为它从元素4位置开始旋转。之后给定一个指定的数字n，
 // 让我们从{4,5,6,7,8,9,1,2,3}这个数组中找出它的
 //位置，要求时间复杂度尽可能的低
-func searchIndexInRotateArr(arr []int) int {
 
+//思路，先看哪边的数组是有序的，因为拐点至少一边是有序的
+func searchIndexInRotateArr(arr []int, target int) int {
+	if len(arr) == 0 {
+		return -1
+	}
+	var low = 0
+	var high = len(arr) - 1
+	for low <= high {
+		var middleIndex = (low + high) / 2
+		if arr[middleIndex] == target {
+			return middleIndex
+		}
+
+		if arr[middleIndex] > arr[low] {
+			//左侧有序
+			if target >= arr[low] && target <= arr[middleIndex] {
+				//在左半部分
+				high = middleIndex - 1
+			} else {
+				//在右半部分
+				low = middleIndex + 1
+			}
+
+		} else {
+			//右侧有序
+			if target >= arr[middleIndex] && target <= arr[high] {
+				low = middleIndex + 1
+			} else {
+				high = middleIndex - 1
+			}
+
+		}
+	}
 	return -1
 }
 
@@ -155,5 +187,6 @@ func main() {
 	//MaxSubArray([]int{-10, -8, -2, -1, -9, -18, -7, -8, -8})
 	//longestSeqLen([]int{10, 2, 9})
 	//longestSeqLen([]int{100, 4, 200, 1, 3, 2})
-	reorder([]int{2, 3, 4, 7, 6, 8, 9, 10})
+	//reorder([]int{2, 3, 4, 7, 6, 8, 9, 10})
+	fmt.Println(searchIndexInRotateArr([]int{4, 5, 6, 7, 8, 9, 1, 2, 3}, 5))
 }
