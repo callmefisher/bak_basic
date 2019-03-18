@@ -58,6 +58,18 @@ func MaxSubArray(arr []int) []int {
 // 3.旋转数组
 
 //4. 给定一个存放整数的数组，重新排列数组使得数组左边为奇数，右边为偶数, 要求：空间复杂度 O(1)，时间复杂度为 O（n）
+//例如 2 3 4 7 6 8 9 10 ===> 3 7 9 2 4 6 8 10
+func reorder(arr []int) {
+	PrintArray("before order:", arr)
+	var availeOushuTag = 0 // 记录一个可以交换的偶数位置
+	for i := 0; i < len(arr); i++ {
+		if arr[i]%2 == 1 {
+			arr[i], arr[availeOushuTag] = arr[availeOushuTag], arr[i]
+			availeOushuTag++
+		}
+	}
+	PrintArray("after order:", arr)
+}
 
 // 5. 最长连续字串长度
 //Given[100, 4, 200, 1, 3, 2],
@@ -135,7 +147,7 @@ func main() {
 	//MaxSubArray([]int{1, 8, -1, 0, 9, 18, -7, 8, 8})
 	//MaxSubArray([]int{-1, -8, -2, 0, 9, -18, -7, -8, 8})
 	//MaxSubArray([]int{-10, -8, -2, -1, -9, -18, -7, -8, -8})
-	longestSeqLen([]int{10, 2, 9})
-	longestSeqLen([]int{100, 4, 200, 1, 3, 2})
-
+	//longestSeqLen([]int{10, 2, 9})
+	//longestSeqLen([]int{100, 4, 200, 1, 3, 2})
+	reorder([]int{2, 3, 4, 7, 6, 8, 9, 10})
 }
