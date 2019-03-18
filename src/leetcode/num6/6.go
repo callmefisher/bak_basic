@@ -59,8 +59,56 @@ func MaxSubArray(arr []int) []int {
 
 //4. 给定一个存放整数的数组，重新排列数组使得数组左边为奇数，右边为偶数, 要求：空间复杂度 O(1)，时间复杂度为 O（n）
 
-// 5. 最大公约数
+// 5. 最长连续字串长度
+//Given[100, 4, 200, 1, 3, 2],
+//The longest consecutive elements sequence is[1, 2, 3, 4]. Return its length:4.
+// 思路采用hash表
+func longestSeqLen(arr []int) int {
+	var lenOfArr = len(arr)
+	if lenOfArr == 0 {
+		return 0
+	}
+	var m = make(map[int]bool)
+	for i := 0; i < lenOfArr; i++ {
+		m[arr[i]] = true
+	}
+	var maxSeqLen = 1
+	for i := 0; i < lenOfArr; i++ {
+		var tmpNum = arr[i]
+		if _, ok1 := m[tmpNum]; !ok1 {
+			continue
+		}
+		delete(m, tmpNum)
+		var preNum = tmpNum - 1
+		var postNum = tmpNum + 1
 
+		for {
+			if _, ok := m[preNum]; !ok {
+				break
+			}
+			delete(m, preNum)
+			preNum--
+		}
+
+		for {
+			if _, ok := m[postNum]; !ok {
+				break
+			}
+			delete(m, postNum)
+			postNum++
+		}
+		var tmpLen = postNum - preNum - 1
+		if maxSeqLen < tmpLen {
+			maxSeqLen = tmpLen
+		}
+	}
+
+	fmt.Println("max seq len:", maxSeqLen)
+
+	return maxSeqLen
+}
+
+// 5. 最大公约数
 func gcd1(a, b int) int {
 	if a == 0 || b == 0 {
 		return 0
@@ -84,7 +132,10 @@ func gcd2(a, b int) int {
 }
 
 func main() {
-	MaxSubArray([]int{1, 8, -1, 0, 9, 18, -7, 8, 8})
-	MaxSubArray([]int{-1, -8, -2, 0, 9, -18, -7, -8, 8})
-	MaxSubArray([]int{-10, -8, -2, -1, -9, -18, -7, -8, -8})
+	//MaxSubArray([]int{1, 8, -1, 0, 9, 18, -7, 8, 8})
+	//MaxSubArray([]int{-1, -8, -2, 0, 9, -18, -7, -8, 8})
+	//MaxSubArray([]int{-10, -8, -2, -1, -9, -18, -7, -8, -8})
+	longestSeqLen([]int{10, 2, 9})
+	longestSeqLen([]int{100, 4, 200, 1, 3, 2})
+
 }
