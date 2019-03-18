@@ -53,6 +53,8 @@ func ReverseList(h *LinkNode)  *LinkNode{
 
 
 
+// 快慢指针
+
 
 func main() {
 	var l1 = CreateLinkList([]int{1, 2, 3, 4})
