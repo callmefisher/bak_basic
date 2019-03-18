@@ -103,7 +103,7 @@ func longestSeqLen(arr []int) int {
 		}
 	}
 
-	fmt.Println("max seq len:", maxSeqLen)
+	fmt.Println(arr, "max seq len:", maxSeqLen)
 
 	return maxSeqLen
 }
