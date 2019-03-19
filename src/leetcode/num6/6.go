@@ -1,8 +1,8 @@
 package main
 
 import (
-	"fmt"
-	"math"
+    "fmt"
+    "math"
 )
 
 // 数组
@@ -248,6 +248,15 @@ func BinarySearchLast(arr []int, target int) int {
 	}
 	return -1
 }
+
+// 7.旋转数组的最小数字
+func minimumInRotate(arr []int)  int {
+    
+    
+    return -1
+}
+
+
 
 func main() {
 	//MaxSubArray([]int{1, 8, -1, 0, 9, 18, -7, 8, 8})
