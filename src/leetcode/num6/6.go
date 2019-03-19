@@ -237,14 +237,13 @@ func BinarySearchLast(arr []int, target int) int {
 
 	for low <= high {
 		var middle = low + int(math.Ceil((float64)(high-low)/2))
-		fmt.Println("low:", low, " high:", high, " v:", arr[middle], " midd:", middle)
 		if target >= arr[middle] {
 			low = middle
 		} else {
 			high = middle - 1
 		}
 		if low == high {
-			return low
+			return middle
 		}
 	}
 	return -1
