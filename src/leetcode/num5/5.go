@@ -22,6 +22,7 @@ func CreateLinkList(arr []int) *LinkNode {
 }
 
 func PrintLinkList(h *LinkNode) {
+
 	for p := h; p != nil; p = p.Next {
 		if p.Next == nil {
 			fmt.Print(p.Val, "  ")
@@ -55,25 +56,35 @@ func ReverseList(h *LinkNode) *LinkNode {
 //Given a singly linked list L: L0→L1→…→Ln-1→Ln,
 //reorder it to: L0→Ln→L1→Ln-1→L2→Ln-2→…
 //You must do this in-place without altering the nodes’ values.
-//For example, Given {1, 2, 3, 4, 5, 6, 7}, reorder it to {1, 7, 2, 6, 3, 5, 4}.
+//For example, Given {1, 2, 3, 4, 5, 6, 7, 8 }, reorder it to {1, 8, 2, 7, 3, 5, 4}.
 func mergeLinkList(l1 *LinkNode, l2 *LinkNode) *LinkNode {
 	if l1 == nil || l2 == nil {
 		return nil
 	}
 
-	var h1 = l1
-	var h2 = l2
+	var p1 = l1
+	var p2 = l2
 
-	for l1.Next != nil && l2.Next != nil {
+	for p1.Next != nil && p2.Next != nil {
 
-		var tmpL1 = h1.Next
-		var tmpL2 = h2.Next
+		var tmpL1 = p1.Next
+		var tmpL2 = p2.Next
+		p1.Next = p2
 
-		h1 = h1.Next
-		h2 = h2.Next
+		if tmpL1 == l2 {
+			break
+		}
+		p2.Next = tmpL1
+		p1 = tmpL1
+		p2 = tmpL2
+
 	}
 
-	return nil
+	if p1.Next == l2 {
+		p1.Next = p2
+	}
+
+	return l1
 }
 
 func reorderLinkList(h *LinkNode) *LinkNode {
@@ -91,15 +102,21 @@ func reorderLinkList(h *LinkNode) *LinkNode {
 
 	var afterReverse = ReverseList(preHead)
 	slow.Next = afterReverse
-	PrintLinkList(h)
-	return h
+
+	var l1 = h.Next
+	var l2 = afterReverse
+
+	//PrintLinkList(h)
+
+	return mergeLinkList(l1, l2)
 }
 
 func main() {
-	var l1 = CreateLinkList([]int{1, 2, 3, 4})
-	PrintLinkList(l1)
-	var l2 = ReverseList(l1)
-	PrintLinkList(l2)
-	var l3 = CreateLinkList([]int{1, 2, 3, 4, 5, 6, 7})
-	reorderLinkList(l3)
+	//var l1 = CreateLinkList([]int{1, 2, 3, 4})
+	//PrintLinkList(l1)
+	//var l2 = ReverseList(l1)
+	//PrintLinkList(l2)
+	var l3 = CreateLinkList([]int{1, 2, 3, 4, 5, 6})
+	var l4 = reorderLinkList(l3)
+	PrintLinkList(l4)
 }
