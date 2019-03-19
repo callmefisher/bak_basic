@@ -203,10 +203,51 @@ func BinarySearchUnique(arr[]int, target int) int  {
 	return -1
 }
 
-
 // 5. 有序数组， 有重复元素，寻找首个位置
+func BinarySearchFirst(arr[]int, target int) int  {
+	var len = len(arr)
+	if len == 0 {
+		return -1
+	}
+	var low = 0
+	var high = len - 1
+	for low <= high  {
+		var middle = low +  ( high - low ) / 2
+		if target == arr[middle] {
+			return middle
+		} else if target > arr[middle] {
+			low = middle + 1
+		} else {
+			high = middle - 1
+		}
+	}
+	return -1
+}
+
+
 
 // 6. 有序数组，有重复元素，寻找最后一个位置
+func BinarySearchLast(arr[]int, target int) int  {
+	var len = len(arr)
+	if len == 0 {
+		return -1
+	}
+	var low = 0
+	var high = len - 1
+	for low <= high  {
+		var middle = low +  ( high - low ) / 2
+		if target == arr[middle] {
+			return middle
+		} else if target > arr[middle] {
+			low = middle + 1
+		} else {
+			high = middle - 1
+		}
+	}
+	return -1
+}
+
+
 
 
 func main() {
