@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"math"
 )
 
 // 数组
@@ -181,17 +182,16 @@ func gcd2(a, b int) int {
 	return gcd2(b, a%b)
 }
 
-
 // 4. 有序数组，无重复元素
-func BinarySearchUnique(arr[]int, target int) int  {
+func BinarySearchUnique(arr []int, target int) int {
 	var len = len(arr)
 	if len == 0 {
 		return -1
 	}
 	var low = 0
 	var high = len - 1
-	for low <= high  {
-		var middle = low +  ( high - low ) / 2
+	for low <= high {
+		var middle = low + (high-low)/2
 		if target == arr[middle] {
 			return middle
 		} else if target > arr[middle] {
@@ -204,51 +204,51 @@ func BinarySearchUnique(arr[]int, target int) int  {
 }
 
 // 5. 有序数组， 有重复元素，寻找首个位置
-func BinarySearchFirst(arr[]int, target int) int  {
+func BinarySearchFirst(arr []int, target int) int {
 	var len = len(arr)
 	if len == 0 {
 		return -1
 	}
 	var low = 0
 	var high = len - 1
-	for low <= high  {
-		var middle = low +  ( high - low ) / 2
-		if target == arr[middle] {
-			return middle
-		} else if target > arr[middle] {
-			low = middle + 1
+
+	for low <= high {
+		var middle = low + (high-low)/2
+		if target <= arr[middle] {
+			high = middle
 		} else {
-			high = middle - 1
+			low = middle + 1
+		}
+		if low == high {
+			return middle
 		}
 	}
 	return -1
 }
-
-
 
 // 6. 有序数组，有重复元素，寻找最后一个位置
-func BinarySearchLast(arr[]int, target int) int  {
+func BinarySearchLast(arr []int, target int) int {
 	var len = len(arr)
 	if len == 0 {
 		return -1
 	}
 	var low = 0
 	var high = len - 1
-	for low <= high  {
-		var middle = low +  ( high - low ) / 2
-		if target == arr[middle] {
-			return middle
-		} else if target > arr[middle] {
-			low = middle + 1
+
+	for low <= high {
+		var middle = low + int(math.Ceil((float64)(high-low)/2))
+		fmt.Println("low:", low, " high:", high, " v:", arr[middle], " midd:", middle)
+		if target >= arr[middle] {
+			low = middle
 		} else {
 			high = middle - 1
+		}
+		if low == high {
+			return low
 		}
 	}
 	return -1
 }
-
-
-
 
 func main() {
 	//MaxSubArray([]int{1, 8, -1, 0, 9, 18, -7, 8, 8})
@@ -259,4 +259,6 @@ func main() {
 	//reorder([]int{2, 3, 4, 7, 6, 8, 9, 10})
 	fmt.Println(searchIndexInRotateArr([]int{4, 5, 6, 7, 8, 9, 1, 2, 3}, 5))
 	fmt.Println(BinarySearchUnique([]int{1, 2, 6, 9, 10, 11, 14}, 10))
+	fmt.Println(BinarySearchFirst([]int{1, 9, 9, 9, 19, 19, 19}, 19))
+	fmt.Println(BinarySearchLast([]int{1, 9, 9, 9, 19, 19, 19}, 19))
 }
