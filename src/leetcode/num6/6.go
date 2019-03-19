@@ -181,6 +181,34 @@ func gcd2(a, b int) int {
 	return gcd2(b, a%b)
 }
 
+
+// 4. 有序数组，无重复元素
+func BinarySearchUnique(arr[]int, target int) int  {
+	var len = len(arr)
+	if len == 0 {
+		return -1
+	}
+	var low = 0
+	var high = len - 1
+	for low <= high  {
+		var middle = low +  ( high - low ) / 2
+		if target == arr[middle] {
+			return middle
+		} else if target > arr[middle] {
+			low = middle + 1
+		} else {
+			high = middle - 1
+		}
+	}
+	return -1
+}
+
+
+// 5. 有序数组， 有重复元素，寻找首个位置
+
+// 6. 有序数组，有重复元素，寻找最后一个位置
+
+
 func main() {
 	//MaxSubArray([]int{1, 8, -1, 0, 9, 18, -7, 8, 8})
 	//MaxSubArray([]int{-1, -8, -2, 0, 9, -18, -7, -8, 8})
@@ -189,4 +217,5 @@ func main() {
 	//longestSeqLen([]int{100, 4, 200, 1, 3, 2})
 	//reorder([]int{2, 3, 4, 7, 6, 8, 9, 10})
 	fmt.Println(searchIndexInRotateArr([]int{4, 5, 6, 7, 8, 9, 1, 2, 3}, 5))
+	fmt.Println(BinarySearchUnique([]int{1, 2, 6, 9, 10, 11, 14}, 10))
 }
