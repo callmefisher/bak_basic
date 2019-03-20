@@ -255,25 +255,63 @@ func BinarySearchLast(arr []int, target int) int {
 	return -1
 }
 
-// 7.旋转数组的最小数字
-func minimumInRotate(arr []int) (index, value int)  {
-	var miniMum = math.MinInt64
-	fmt.Print("\n arr:", arr, " minimum number:", miniMum)
+// 7.旋转数组的最小数字, 旋转后数组，最左边的数值总是大于最右边，如果中间的值小于等于最左边，说明最小值在左半部分
+//如果中间值大于最左边的值，说明最小值在右半部分
+func minimumInRotate(arr []int) (index, value int) {
+	fmt.Print("\n arr:", arr, " ")
 	var len = len(arr)
 	if len == 0 {
-		return
+		return -1, -1
 	}
 	var low = 0
 	var high = len - 1
 	if arr[low] <= arr[high] {
 		return low, arr[low]
 	}
-	
-	
+	for low <= high {
+		var middle = (high + low) / 2
+		if arr[middle] < arr[low] {
+			high = middle
+		} else if arr[middle] == arr[low] {
+			if arr[low] > arr[high] {
+				return high, arr[high]
+			} else {
+				return low, arr[low]
+			}
+		} else {
+			low = middle + 1
+		}
+		if low == high {
+			return low, arr[low]
+		}
+	}
 	return -1, -1
 }
 
-
+func minimumInRotate2(arr []int) (index, value int) {
+	fmt.Print("\n arr:", arr, " ")
+	var len = len(arr)
+	if len == 0 {
+		return -1, -1
+	}
+	var low = 0
+	var high = len - 1
+	if arr[low] <= arr[high] {
+		return low, arr[low]
+	}
+	for low <= high {
+		var middle = (high + low) / 2
+		if arr[middle] < arr[high] {
+			high = middle
+		} else {
+			low = middle + 1
+		}
+		if low == high {
+			return low, arr[low]
+		}
+	}
+	return -1, -1
+}
 
 func main() {
 	//MaxSubArray([]int{1, 8, -1, 0, 9, 18, -7, 8, 8})
@@ -296,5 +334,35 @@ func main() {
 	fmt.Println(BinarySearchLast([]int{1, 9, 9, 9, 19, 19, 19}, 20), " \n")
 	fmt.Println(BinarySearchLast([]int{1, 9, 9, 9, 19, 19, 19}, 1), " \n")
 	fmt.Println(BinarySearchLast([]int{1, 9, 9, 9, 19, 19, 19}, 0), " \n")
-	minimumInRotate([]int{4, 5, 1, 2, 3})
+
+	var index1, value1 = minimumInRotate2([]int{4, 5, 1, 2, 3})
+	fmt.Println(index1, value1, "\n")
+
+	var index2, value2 = minimumInRotate2([]int{1, 1, 1, 1, 1})
+	fmt.Println(index2, value2, "\n")
+
+	var index3, value3 = minimumInRotate2([]int{1, 10, 11, 12, 100})
+	fmt.Println(index3, value3, "\n")
+
+	var index4, value4 = minimumInRotate2([]int{12, 100, 101, 10, 10, 10})
+	fmt.Println(index4, value4, "\n")
+
+	var index5, value5 = minimumInRotate2([]int{7})
+	fmt.Println(index5, value5, "\n")
+
+	var index6, value6 = minimumInRotate2([]int{7, 2})
+	fmt.Println(index6, value6, "\n")
+
+	var index7, value7 = minimumInRotate2([]int{6, 7, 1, 2, 3, 4, 5})
+	fmt.Println(index7, value7, "\n") //
+
+	var index8, value8 = minimumInRotate2([]int{3, 4, 5, 6, 7, 1, 2})
+	fmt.Println(index8, value8, "\n")
+
+	var index9, value9 = minimumInRotate2([]int{12, 100, 10, 10, 10, 10})
+	fmt.Println(index9, value9, "\n")
+
+	var index10, value10 = minimumInRotate2([]int{12, 10, 10, 10, 10, 10})
+	fmt.Println(index10, value10, "\n")
+
 }
