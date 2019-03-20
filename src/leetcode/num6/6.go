@@ -256,10 +256,24 @@ func BinarySearchLast(arr []int, target int) int {
 }
 
 // 7.旋转数组的最小数字
-func minimumInRotate(arr []int) int {
-
-	return -1
+func minimumInRotate(arr []int) (index, value int)  {
+	var miniMum = math.MinInt64
+	fmt.Print("\n arr:", arr, " minimum number:", miniMum)
+	var len = len(arr)
+	if len == 0 {
+		return
+	}
+	var low = 0
+	var high = len - 1
+	if arr[low] <= arr[high] {
+		return low, arr[low]
+	}
+	
+	
+	return -1, -1
 }
+
+
 
 func main() {
 	//MaxSubArray([]int{1, 8, -1, 0, 9, 18, -7, 8, 8})
@@ -282,4 +296,5 @@ func main() {
 	fmt.Println(BinarySearchLast([]int{1, 9, 9, 9, 19, 19, 19}, 20), " \n")
 	fmt.Println(BinarySearchLast([]int{1, 9, 9, 9, 19, 19, 19}, 1), " \n")
 	fmt.Println(BinarySearchLast([]int{1, 9, 9, 9, 19, 19, 19}, 0), " \n")
+	minimumInRotate([]int{4, 5, 1, 2, 3})
 }
