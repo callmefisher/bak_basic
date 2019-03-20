@@ -1,8 +1,8 @@
 package main
 
 import (
-    "fmt"
-    "math"
+	"fmt"
+	"math"
 )
 
 // 数组
@@ -214,13 +214,15 @@ func BinarySearchFirst(arr []int, target int) int {
 
 	for low <= high {
 		var middle = low + (high-low)/2
-		if target <= arr[middle] {
+		if low == high && target == arr[middle] {
+			return low
+		}
+		if target == arr[middle] {
 			high = middle
+		} else if target < arr[middle] {
+			high = middle - 1
 		} else {
 			low = middle + 1
-		}
-		if low == high {
-			return middle
 		}
 	}
 	return -1
@@ -243,20 +245,17 @@ func BinarySearchLast(arr []int, target int) int {
 			high = middle - 1
 		}
 		if low == high {
-			return middle
+			return low
 		}
 	}
 	return -1
 }
 
 // 7.旋转数组的最小数字
-func minimumInRotate(arr []int)  int {
-    
-    
-    return -1
+func minimumInRotate(arr []int) int {
+
+	return -1
 }
-
-
 
 func main() {
 	//MaxSubArray([]int{1, 8, -1, 0, 9, 18, -7, 8, 8})
@@ -267,6 +266,6 @@ func main() {
 	//reorder([]int{2, 3, 4, 7, 6, 8, 9, 10})
 	fmt.Println(searchIndexInRotateArr([]int{4, 5, 6, 7, 8, 9, 1, 2, 3}, 5))
 	fmt.Println(BinarySearchUnique([]int{1, 2, 6, 9, 10, 11, 14}, 10))
-	fmt.Println(BinarySearchFirst([]int{1, 9, 9, 9, 19, 19, 19}, 19))
+	fmt.Println(BinarySearchFirst([]int{1, 19, 19, 19, 29, 29, 29}, 29))
 	fmt.Println(BinarySearchLast([]int{1, 9, 9, 9, 19, 19, 19}, 19))
 }
