@@ -205,6 +205,7 @@ func BinarySearchUnique(arr []int, target int) int {
 
 // 5. 有序数组， 有重复元素，寻找首个位置
 func BinarySearchFirst(arr []int, target int) int {
+	fmt.Print(" arr:", arr, " first target:", target, "\n")
 	var len = len(arr)
 	if len == 0 {
 		return -1
@@ -215,7 +216,7 @@ func BinarySearchFirst(arr []int, target int) int {
 	for low <= high {
 		var middle = low + (high-low)/2
 		if low == high && target == arr[middle] {
-			return low
+			return middle
 		}
 		if target == arr[middle] {
 			high = middle
@@ -230,6 +231,7 @@ func BinarySearchFirst(arr []int, target int) int {
 
 // 6. 有序数组，有重复元素，寻找最后一个位置
 func BinarySearchLast(arr []int, target int) int {
+	fmt.Print(" \narr:", arr, " last target:", target, "\n")
 	var len = len(arr)
 	if len == 0 {
 		return -1
@@ -238,14 +240,16 @@ func BinarySearchLast(arr []int, target int) int {
 	var high = len - 1
 
 	for low <= high {
-		var middle = low + int(math.Ceil((float64)(high-low)/2))
-		if target >= arr[middle] {
+		var middle = int(math.Ceil((float64)(high+low) / 2))
+		if low == high && target == arr[middle] {
+			return middle
+		}
+		if target == arr[middle] {
 			low = middle
+		} else if target > arr[middle] {
+			low = middle + 1
 		} else {
 			high = middle - 1
-		}
-		if low == high {
-			return low
 		}
 	}
 	return -1
@@ -266,6 +270,16 @@ func main() {
 	//reorder([]int{2, 3, 4, 7, 6, 8, 9, 10})
 	fmt.Println(searchIndexInRotateArr([]int{4, 5, 6, 7, 8, 9, 1, 2, 3}, 5))
 	fmt.Println(BinarySearchUnique([]int{1, 2, 6, 9, 10, 11, 14}, 10))
-	fmt.Println(BinarySearchFirst([]int{1, 19, 19, 19, 29, 29, 29}, 29))
-	fmt.Println(BinarySearchLast([]int{1, 9, 9, 9, 19, 19, 19}, 19))
+	fmt.Println(BinarySearchFirst([]int{1, 19, 19, 19, 29, 29, 29}, 29), " \n")
+	fmt.Println(BinarySearchFirst([]int{1, 19, 19, 19, 29, 29, 29}, 19), " \n")
+	fmt.Println(BinarySearchFirst([]int{1, 19, 19, 19, 29, 29, 29}, 1), " \n")
+	fmt.Println(BinarySearchFirst([]int{1, 19, 19, 19, 29, 29, 29}, 10), " \n")
+	fmt.Println(BinarySearchFirst([]int{1, 19, 19, 19, 29, 29, 29}, 30), " \n")
+	fmt.Println(BinarySearchFirst([]int{1, 19, 19, 19, 29, 29, 29}, 0), " \n")
+
+	fmt.Println(BinarySearchLast([]int{1, 9, 9, 9, 19, 19, 19}, 19), " \n")
+	fmt.Println(BinarySearchLast([]int{1, 9, 9, 9, 19, 19, 19}, 9), " \n")
+	fmt.Println(BinarySearchLast([]int{1, 9, 9, 9, 19, 19, 19}, 20), " \n")
+	fmt.Println(BinarySearchLast([]int{1, 9, 9, 9, 19, 19, 19}, 1), " \n")
+	fmt.Println(BinarySearchLast([]int{1, 9, 9, 9, 19, 19, 19}, 0), " \n")
 }
