@@ -313,11 +313,48 @@ func minimumInRotate2(arr []int) (index, value int) {
 	return -1, -1
 }
 
-//8. 排序数组中的唯一不重复数字
+//8. 一个有序数组只有一个数不出现两次，其他数字都出现2次,找出这个数
+//思路，个数必然是奇数个
+func uniqueInSortArr(arr []int) int {
+	fmt.Print("\n arr:", arr)
+	var len = len(arr)
+	if len == 0 || len%2 != 1 {
+		return -99999
+	}
+	var low = 0
+	var high = len - 1
+	for low <= high {
+		var middle = low + (high-low)/2
+		if middle == 0 {
+			return arr[middle]
+		}
+		if arr[middle] != arr[middle-1] && arr[middle] != arr[middle+1] {
+			return arr[middle]
+		}
 
+		if (high-middle)%2 == 0 {
+			//中间左右有偶数个
+			if arr[middle] == arr[middle-1] {
+				high = middle - 2
+			} else if arr[middle] == arr[middle+1] {
+				low = middle + 2
+			}
+		} else {
+			//中间左右有奇数个
+			if arr[middle] == arr[middle-1] {
+				low = middle + 1
 
+			} else if arr[middle] == arr[middle+1] {
+				high = middle - 1
+			}
+		}
+		if low == high {
+			return arr[low]
+		}
+	}
 
-
+	return -999999
+}
 
 func main() {
 	//MaxSubArray([]int{1, 8, -1, 0, 9, 18, -7, 8, 8})
@@ -370,5 +407,15 @@ func main() {
 
 	var index10, value10 = minimumInRotate2([]int{12, 10, 10, 10, 10, 10})
 	fmt.Println(index10, value10, "\n")
+
+	fmt.Println(" uniqueNum:", uniqueInSortArr([]int{0, 0, 1}))
+	fmt.Println(" uniqueNum:", uniqueInSortArr([]int{0, 1, 1}))
+	fmt.Println(" uniqueNum:", uniqueInSortArr([]int{0, 0, 4, 4}))
+	fmt.Println(" uniqueNum:", uniqueInSortArr([]int{0, 0, 4, 4}))
+	fmt.Println(" uniqueNum:", uniqueInSortArr([]int{-1, -1, 0, 0, 1, 2, 2, 3, 3}))
+	fmt.Println(" uniqueNum:", uniqueInSortArr([]int{-1, -1, 0, 0, 1, 1, 2, 2, 3}))
+	fmt.Println(" uniqueNum:", uniqueInSortArr([]int{-1, -1, 0, 0, 1, 1, 2, 3, 3}))
+	fmt.Println(" uniqueNum:", uniqueInSortArr([]int{-1, -1, 0, 1, 1, 2, 2, 3, 3}))
+	fmt.Println(" uniqueNum:", uniqueInSortArr([]int{-1, 0, 0, 1, 1, 2, 2, 3, 3}))
 
 }
