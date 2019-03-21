@@ -313,6 +313,12 @@ func minimumInRotate2(arr []int) (index, value int) {
 	return -1, -1
 }
 
+//8. 排序数组中的唯一不重复数字
+
+
+
+
+
 func main() {
 	//MaxSubArray([]int{1, 8, -1, 0, 9, 18, -7, 8, 8})
 	//MaxSubArray([]int{-1, -8, -2, 0, 9, -18, -7, -8, 8})

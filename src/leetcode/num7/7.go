@@ -30,6 +30,8 @@ func RightRotate(str string, shiftLen int) (string) {
 	return  strings.Join(tmpStr, "")
 }
 
+//3。 最长的不重复字串   例如"abcabcbb"--> abc        "pwwkew"->wkew  "bbbbbb-->b"
+
 
 
 //字符串
