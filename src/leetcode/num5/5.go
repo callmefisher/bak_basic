@@ -111,6 +111,53 @@ func reorderLinkList(h *LinkNode) *LinkNode {
 	return mergeLinkList(l1, l2)
 }
 
+//. 给定一个不含有重复数字的链表，和一个数组，其中数组的元素全部来自于链表，返回相连子链表的数量
+// 例如 链表A: 10->12->2->4->5->1->null, 数组:[12, 5, 4], 链表被分为[12,] [4，5]，2个子链表
+//                                          [ 2, 1, 5,12] --> [12,2]和[ 5,1]2个
+
+func getConnectListNum(h *LinkNode, arr []int) {
+
+	fmt.Print("arr:", arr, " ")
+	var arrLen = len(arr)
+	if arrLen == 0 || h == nil || h.Next == nil {
+		return
+	}
+	var m = make(map[int]bool)
+	for i := 0; i < arrLen; i++ {
+		m[arr[i]] = true
+	}
+
+	var p = h.Next
+	var count = 0
+
+	for p != nil {
+
+		for {
+
+			if _, ok1 := m[p.Val.(int)]; !ok1 {
+				p = p.Next
+			} else {
+				break
+			}
+		}
+
+		count++
+
+		for {
+			if p == nil {
+				break
+			}
+			if _, ok1 := m[p.Val.(int)]; ok1 {
+				p = p.Next
+			} else {
+				break
+			}
+
+		}
+	}
+	fmt.Print(" num of sub link:", count, " \n")
+}
+
 func main() {
 	//var l1 = CreateLinkList([]int{1, 2, 3, 4})
 	//PrintLinkList(l1)
@@ -119,4 +166,9 @@ func main() {
 	var l3 = CreateLinkList([]int{1, 2, 3, 4, 5, 6})
 	var l4 = reorderLinkList(l3)
 	PrintLinkList(l4)
+	var l5 = CreateLinkList([]int{10, 12, 2, 4, 5, 1})
+	PrintLinkList(l5)
+	getConnectListNum(l5, []int{2, 1, 5, 12})
+	getConnectListNum(l5, []int{4, 1, 5, 12})
+	getConnectListNum(l5, []int{4, 1, 12})
 }
