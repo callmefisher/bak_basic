@@ -356,6 +356,14 @@ func uniqueInSortArr(arr []int) int {
 	return -999999
 }
 
+func lowerBound(arr[]int, target int)  int {
+
+}
+
+func upperBound(arr[]int , target int)  {
+
+}
+
 func main() {
 	//MaxSubArray([]int{1, 8, -1, 0, 9, 18, -7, 8, 8})
 	//MaxSubArray([]int{-1, -8, -2, 0, 9, -18, -7, -8, 8})
