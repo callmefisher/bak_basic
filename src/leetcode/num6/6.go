@@ -356,12 +356,26 @@ func uniqueInSortArr(arr []int) int {
 	return -999999
 }
 
-func lowerBound(arr[]int, target int)  int {
+func lowerBound(arr []int, target int) int {
+	var lenArr = len(arr)
+	if lenArr == 0 {
+		return 0
+	}
+	if target > arr[lenArr - 1] {
+		return -1
+	}
+	var low = 0
+	var high = lenArr - 1
+	for low < high {
+		var middle = low + (high-low)/2
 
-}
-
-func upperBound(arr[]int , target int)  {
-
+		if target <= arr[middle] {
+			high = middle
+		} else {
+			low = middle + 1
+		}
+	}
+	return low
 }
 
 func main() {
@@ -425,5 +439,7 @@ func main() {
 	fmt.Println(" uniqueNum:", uniqueInSortArr([]int{-1, -1, 0, 0, 1, 1, 2, 3, 3}))
 	fmt.Println(" uniqueNum:", uniqueInSortArr([]int{-1, -1, 0, 1, 1, 2, 2, 3, 3}))
 	fmt.Println(" uniqueNum:", uniqueInSortArr([]int{-1, 0, 0, 1, 1, 2, 2, 3, 3}))
+
+	fmt.Println(lowerBound([]int{-1, 0, 0, 1, 1, 10}, 11))
 
 }
