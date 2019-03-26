@@ -406,6 +406,35 @@ func lowerBound(arr []int, target int) int {
 	return low
 }
 
+//快速排序
+func quickSort(arr []int, left, right int) []int {
+	if len(arr) < 2 || left >= right {
+		return arr
+	}
+
+	var i = left
+	var j = right
+	var tmpNum = arr[left]
+
+	for i < j {
+
+		for ; i < j && arr[j] >= tmpNum; j-- {
+
+		}
+		arr[i] = arr[j]
+
+		for ; i < j && arr[i] <= tmpNum; i++ {
+
+		}
+
+		arr[j] = arr[i]
+	}
+	arr[i] = tmpNum
+	quickSort(arr, left, j-1)
+	quickSort(arr, i+1, right)
+	return arr
+}
+
 func main() {
 
 	MaxSubArray2([]int{1, 8, -1, 0, 9, 18, -7, 8, 8})
@@ -479,4 +508,10 @@ func main() {
 
 	fmt.Println(lowerBound([]int{-1, 0, 0, 1, 1, 10}, 11))
 
+	fmt.Println(quickSort([]int{1, 8, -1, 0, 9}, 0, 4))
+	fmt.Println(quickSort([]int{1, 8, -1, -1, -1}, 0, 4))
+	fmt.Println(quickSort([]int{1, -8, -1, -1, -1}, 0, 4))
+	fmt.Println(quickSort([]int{1, 8, -10, 9, 0}, 0, 4))
+	fmt.Println(quickSort([]int{-1, -8, -10, -19, -100}, 0, 4))
+	fmt.Println(quickSort([]int{-100, -19, -10, -8, 1}, 0, 4))
 }
