@@ -47,6 +47,34 @@ func MaxSubArray(arr []int) []int {
 	return result
 }
 
+func maxNum(a, b int) int {
+	if a > b {
+		return a
+	}
+	return b
+}
+
+//非连续子数组最大值
+func MaxSubArray2(arr []int) {
+	var result = arr[0]
+	var tmpPreMax = result
+	for i := 1; i < len(arr); i++ {
+
+		if arr[i] > tmpPreMax {
+			tmpPreMax = arr[i]
+		}
+		if arr[i] > 0 {
+			if result < 0 {
+				result = arr[i]
+			} else {
+				result += arr[i]
+			}
+		}
+	}
+	result = maxNum(result, tmpPreMax)
+	fmt.Println("\narr:", arr, " maxSubArrayNum:", result, " tmpPreMax:", tmpPreMax)
+}
+
 // 2. 寻找从上至下的一条值最大的路径
 /*
             [ [2]]
@@ -361,7 +389,7 @@ func lowerBound(arr []int, target int) int {
 	if lenArr == 0 {
 		return 0
 	}
-	if target > arr[lenArr - 1] {
+	if target > arr[lenArr-1] {
 		return -1
 	}
 	var low = 0
@@ -379,9 +407,18 @@ func lowerBound(arr []int, target int) int {
 }
 
 func main() {
-	//MaxSubArray([]int{1, 8, -1, 0, 9, 18, -7, 8, 8})
-	//MaxSubArray([]int{-1, -8, -2, 0, 9, -18, -7, -8, 8})
-	//MaxSubArray([]int{-10, -8, -2, -1, -9, -18, -7, -8, -8})
+
+	MaxSubArray2([]int{1, 8, -1, 0, 9, 18, -7, 8, 8})
+	MaxSubArray([]int{1, 8, -1, 0, 9, 18, -7, 8, 8})
+
+	MaxSubArray2([]int{-1, -8, -2, 0, 9, -18, -7, -8, 8})
+	MaxSubArray([]int{-1, -8, -2, 0, 9, -18, -7, -8, 8})
+
+	MaxSubArray2([]int{-10, -8, -2, -1, -9, -18, -7, -8, -8})
+	MaxSubArray2([]int{-10, -8, -2, -1, -9, -18, -7, -8, -8, 0})
+	MaxSubArray2([]int{0, -8, -2, -1, -9, -18, -7, -8, -8, 0})
+	MaxSubArray2([]int{-10, 8, -2, 1, -9, -18, -7, 8, -8, 0})
+	MaxSubArray([]int{-10, 8, -2, -1, -9, -18, -7, 8, -8})
 	//longestSeqLen([]int{10, 2, 9})
 	//longestSeqLen([]int{100, 4, 200, 1, 3, 2})
 	//reorder([]int{2, 3, 4, 7, 6, 8, 9, 10})
