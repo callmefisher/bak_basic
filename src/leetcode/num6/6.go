@@ -435,6 +435,35 @@ func quickSort(arr []int, left, right int) []int {
 	return arr
 }
 
+// 合并有序数组， Input:
+//nums1 = [1,2,3,0,0,0], m = 3
+//nums2 = [2,5,6],       n = 3
+//
+//Output: [1,2,2,3,5,6]， num1数组有足够大的空间
+
+func mergeArray(arr1, arr2 []int, len1 int) {
+
+	var len2 = len(arr2)
+	fmt.Println(len1, " ", len2)
+	var totalLen = len1 + len2 - 1
+	var i, j = len1 - 1, len2 - 1
+	for i >= 0 && j >= 0 {
+		if arr1[i] > arr2[j] {
+			arr1[totalLen] = arr1[i]
+			i--
+		} else {
+			arr1[totalLen] = arr2[j]
+			j--
+		}
+		totalLen--
+	}
+	for j >= 0 {
+		arr1[totalLen] = arr2[j]
+		j--
+		totalLen--
+	}
+}
+
 func main() {
 
 	MaxSubArray2([]int{1, 8, -1, 0, 9, 18, -7, 8, 8})
@@ -514,4 +543,13 @@ func main() {
 	fmt.Println(quickSort([]int{1, 8, -10, 9, 0}, 0, 4))
 	fmt.Println(quickSort([]int{-1, -8, -10, -19, -100}, 0, 4))
 	fmt.Println(quickSort([]int{-100, -19, -10, -8, 1}, 0, 4))
+
+	var arr1 = make([]int, 10, 10)
+	arr1[0] = 1
+	arr1[1] = 5
+	arr1[2] = 6
+
+	var arr2 = []int{2, 2, 3, 19}
+	mergeArray(arr1, arr2, 3)
+	fmt.Println("after merge :", arr1)
 }
