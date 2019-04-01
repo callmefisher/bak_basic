@@ -158,6 +158,33 @@ func getConnectListNum(h *LinkNode, arr []int) {
 	fmt.Print(" num of sub link:", count, " \n")
 }
 
+// 链表排序
+//Example 1:
+//Input: 4->2->1->3
+//Output: 1->2->3->4
+//时间复杂度必须为O(nlgn)
+//Example 2:
+//Input: -1->5->3->4->0
+//Output: -1->0->3->4->5
+
+func listSort(l *LinkNode) {
+
+}
+
+// 链表局部反转
+
+// 反转链表方法2
+func reverseListWay2(head *LinkNode) *LinkNode {
+	var newHead *LinkNode
+	for head != nil {
+		var tmpNode = head.Next
+		head.Next = newHead
+		newHead = head
+		head = tmpNode
+	}
+	return newHead
+}
+
 func main() {
 	//var l1 = CreateLinkList([]int{1, 2, 3, 4})
 	//PrintLinkList(l1)
@@ -168,7 +195,8 @@ func main() {
 	PrintLinkList(l4)
 	var l5 = CreateLinkList([]int{10, 12, 2, 4, 5, 1})
 	PrintLinkList(l5)
-	getConnectListNum(l5, []int{2, 1, 5, 12})
-	getConnectListNum(l5, []int{4, 1, 5, 12})
-	getConnectListNum(l5, []int{4, 1, 12})
+	//getConnectListNum(l5, []int{2, 1, 5, 12})
+	//getConnectListNum(l5, []int{4, 1, 5, 12})
+	//getConnectListNum(l5, []int{4, 1, 12})
+	PrintLinkList(reverseListWay2(l5))
 }
