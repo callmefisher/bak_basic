@@ -11,7 +11,7 @@ type LinkNode struct {
 }
 
 func CreateLinkList(arr []int) *LinkNode {
-	var head = &LinkNode{Val: "Head"}
+	var head = &LinkNode{Val: -99999999}
 	var p = head
 	for i := 0; i < len(arr); i++ {
 		var tmpNode = &LinkNode{Val: arr[i]}
@@ -61,10 +61,8 @@ func mergeLinkList(l1 *LinkNode, l2 *LinkNode) *LinkNode {
 	if l1 == nil || l2 == nil {
 		return nil
 	}
-
 	var p1 = l1
 	var p2 = l2
-
 	for p1.Next != nil && p2.Next != nil {
 
 		var tmpL1 = p1.Next
@@ -170,12 +168,7 @@ func getConnectListNum(h *LinkNode, arr []int) {
 //符合要求只有快速排序，归并排序，堆排序，而根据单链表的特点，最适于用归并排序
 
 func mergeListToOrder(head1 *LinkNode, head2 *LinkNode) *LinkNode {
-	if head1 == nil {
-		return head2
-	}
-	if head2 == nil {
-		return head1
-	}
+
 	var tmpDummyNode = &LinkNode{}
 	var curNode = tmpDummyNode
 	for head1 != nil && head2 != nil {
@@ -188,6 +181,7 @@ func mergeListToOrder(head1 *LinkNode, head2 *LinkNode) *LinkNode {
 		}
 		curNode = curNode.Next
 	}
+
 	if head1 != nil {
 		curNode.Next = head1
 	}
@@ -195,16 +189,16 @@ func mergeListToOrder(head1 *LinkNode, head2 *LinkNode) *LinkNode {
 		curNode.Next = head2
 	}
 
-	return tmpDummyNode
+	return tmpDummyNode.Next
 }
 
 func listSort(head *LinkNode) *LinkNode {
-	if head == nil {
-		return nil
+	if head == nil || head.Next == nil {
+		return head
 	}
 	var slow = head
-	var fast = head
-	var preNode = head
+	var fast = slow
+	var preNode = slow
 	for fast != nil && fast.Next != nil {
 		preNode = slow
 		slow = slow.Next
@@ -212,9 +206,7 @@ func listSort(head *LinkNode) *LinkNode {
 	}
 
 	preNode.Next = nil
-	mergeListToOrder(listSort(head), listSort(slow))
-
-	return nil
+	return mergeListToOrder(listSort(head), listSort(slow))
 }
 
 // 链表局部反转
@@ -297,5 +289,5 @@ func main() {
 	//PrintLinkList(reversePartList(l5, 3, 6))
 	//PrintLinkList(reversePartList(l5, 3, 4))
 
-	fmt.Println(listSort(l5))
+	PrintLinkList(listSort(l5))
 }
