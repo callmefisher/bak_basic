@@ -100,7 +100,7 @@ func reorderLinkList(h *LinkNode) *LinkNode {
 	}
 	var preHead = slow.Next
 
-	var afterReverse = reverseListWay2(preHead)
+	var afterReverse = reverseListWay2(preHead, nil)
 	slow.Next = afterReverse
 
 	var l1 = h.Next
@@ -172,10 +172,57 @@ func listSort(l *LinkNode) {
 }
 
 // 链表局部反转
+//Example 1:
+//Input: 4->2->1->3->5->0,  m = 3, n = 5, 反转[m , n]之间的部分
+//Output: 4->2->5->3->1->0
+func reversePartList(head *LinkNode, m, n int) *LinkNode {
+	var fast = head
+	var slow = head
+	for fast != nil && fast.Next != nil {
+		fast = fast.Next.Next
+		slow = slow.Next
+	}
+	fmt.Println("slowNode:", slow.Val)
+
+	if m >= n || m <= 0 || n <= 0 {
+		return head
+	}
+
+	var tmpNode1 = head
+	var tmpNode2 = head
+	var count1, count2 = 1, 1
+
+	for count2 < n {
+
+		if count1 < m {
+			tmpNode1 = tmpNode1.Next
+			if tmpNode1 == nil {
+				return head
+			}
+		}
+		tmpNode2 = tmpNode2.Next
+		if tmpNode2 == nil {
+			return head
+		}
+		count1++
+		count2++
+	}
+	if tmpNode1.Next == nil || tmpNode2.Next == nil {
+		return head
+	}
+
+	var firstTail = tmpNode1
+	var secondTail = tmpNode2.Next.Next
+	tmpNode2.Next.Next = nil
+	var newPartHead = reverseListWay2(tmpNode1.Next, secondTail)
+	firstTail.Next = newPartHead
+
+	return head
+}
 
 // 反转链表方法2
-func reverseListWay2(head *LinkNode) *LinkNode {
-	var preNode *LinkNode
+func reverseListWay2(head *LinkNode, secondTail *LinkNode) *LinkNode {
+	var preNode *LinkNode = secondTail
 	for head != nil {
 		var tmpNode = head.Next
 		head.Next = preNode
@@ -198,5 +245,9 @@ func main() {
 	//getConnectListNum(l5, []int{2, 1, 5, 12})
 	//getConnectListNum(l5, []int{4, 1, 5, 12})
 	//getConnectListNum(l5, []int{4, 1, 12})
-	PrintLinkList(reverseListWay2(l5))
+	//PrintLinkList(reverseListWay2(l5))
+
+	//PrintLinkList(reversePartList(l5, 3, 5))
+	//PrintLinkList(reversePartList(l5, 3, 6))
+	PrintLinkList(reversePartList(l5, 3, 4))
 }
