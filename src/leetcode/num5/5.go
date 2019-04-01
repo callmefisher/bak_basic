@@ -100,7 +100,7 @@ func reorderLinkList(h *LinkNode) *LinkNode {
 	}
 	var preHead = slow.Next
 
-	var afterReverse = ReverseList(preHead)
+	var afterReverse = reverseListWay2(preHead)
 	slow.Next = afterReverse
 
 	var l1 = h.Next
@@ -175,14 +175,14 @@ func listSort(l *LinkNode) {
 
 // 反转链表方法2
 func reverseListWay2(head *LinkNode) *LinkNode {
-	var newHead *LinkNode
+	var preNode *LinkNode
 	for head != nil {
 		var tmpNode = head.Next
-		head.Next = newHead
-		newHead = head
+		head.Next = preNode
+		preNode = head
 		head = tmpNode
 	}
-	return newHead
+	return preNode
 }
 
 func main() {
