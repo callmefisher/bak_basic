@@ -167,8 +167,54 @@ func getConnectListNum(h *LinkNode, arr []int) {
 //Input: -1->5->3->4->0
 //Output: -1->0->3->4->5
 
-func listSort(l *LinkNode) {
+//符合要求只有快速排序，归并排序，堆排序，而根据单链表的特点，最适于用归并排序
 
+func mergeListToOrder(head1 *LinkNode, head2 *LinkNode) *LinkNode {
+	if head1 == nil {
+		return head2
+	}
+	if head2 == nil {
+		return head1
+	}
+	var tmpDummyNode = &LinkNode{}
+	var curNode = tmpDummyNode
+	for head1 != nil && head2 != nil {
+		if head1.Val.(int) > head2.Val.(int) {
+			curNode.Next = head2
+			head2 = head2.Next
+		} else {
+			curNode.Next = head1
+			head1 = head1.Next
+		}
+		curNode = curNode.Next
+	}
+	if head1 != nil {
+		curNode.Next = head1
+	}
+	if head2 != nil {
+		curNode.Next = head2
+	}
+
+	return tmpDummyNode
+}
+
+func listSort(head *LinkNode) *LinkNode {
+	if head == nil {
+		return nil
+	}
+	var slow = head
+	var fast = head
+	var preNode = head
+	for fast != nil && fast.Next != nil {
+		preNode = slow
+		slow = slow.Next
+		fast = fast.Next.Next
+	}
+
+	preNode.Next = nil
+	mergeListToOrder(listSort(head), listSort(slow))
+
+	return nil
 }
 
 // 链表局部反转
@@ -249,5 +295,7 @@ func main() {
 
 	//PrintLinkList(reversePartList(l5, 3, 5))
 	//PrintLinkList(reversePartList(l5, 3, 6))
-	PrintLinkList(reversePartList(l5, 3, 4))
+	//PrintLinkList(reversePartList(l5, 3, 4))
+
+	fmt.Println(listSort(l5))
 }
