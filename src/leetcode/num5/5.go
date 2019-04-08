@@ -270,6 +270,9 @@ func reverseListWay2(head *LinkNode, secondTail *LinkNode) *LinkNode {
 	return preNode
 }
 
+
+// 有环链表的相遇点，思路先用快慢指针，找到首次相遇的地方，然后让慢指针指向头节点，重新迭代，下一次相遇的地方就是环的入口节点
+
 func main() {
 	//var l1 = CreateLinkList([]int{1, 2, 3, 4})
 	//PrintLinkList(l1)
