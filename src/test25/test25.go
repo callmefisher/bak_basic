@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"github.com/qiniu/xlog.v1"
 	"qiniu.com/pili/common/redisutilv5"
 )
@@ -13,9 +12,10 @@ func test() {
 			"127.0.0.1:6385"},
 	}
 
-	var xl = xlog.NewDummy()
 	cluster, _ := redisutilv5.NewRdsClusterClient(conf)
 
+	var xl = xlog.NewDummy()
+	// test1
 	//pipeline := cluster.PipelineWithTrack()
 
 	//var r1, e1 = pipeline.Set("h1", "w1", 0 ).Result()
@@ -37,30 +37,38 @@ func test() {
 
 	//fmt.Println(v1, " err:", err)
 
-	var script1 = " local v1 = redis.call('get',KEYS[1]) if v1 == false or v1 == '' then redis.call('set',KEYS[1],ARGV[1]) end"
-	//var script2 = " local v1 = redis.call('get',KEYS[1]) if v1 ~= false and v1 ~= '' then redis.call('del',KEYS[1]) end"
-	var m = make(map[string]string)
-	m["key3"] = "v3"
-	m["key4"] = "v4"
-	m["key5"] = "v5"
-	m["key6"] = "v6"
-	m["key7"] = "v7"
-	m["key8"] = "v8"
-	m["key9"] = "v9"
-	m["key10"] = "v10"
-	pipeline := cluster.PipelineWithTrack()
-	for k, v := range m {
-		pipeline.Eval(script1, []string{k}, v)
-		//pipeline.Eval(script2, []string{k, },  v)
-	}
-	_, e1 := pipeline.ExecWithTrack(xl, "script")
-	fmt.Println(" ====> ", e1)
-	pipeline.Close()
+	//test2
+
+	//var script1 = " local v1 = redis.call('get',KEYS[1]) if v1 == false or v1 == '' then redis.call('set',KEYS[1],ARGV[1]) end"
+	////var script2 = " local v1 = redis.call('get',KEYS[1]) if v1 ~= false and v1 ~= '' then redis.call('del',KEYS[1]) end"
+	//var m = make(map[string]string)
+	//m["key3"] = "v3"
+	//m["key4"] = "v4"
+	//m["key5"] = "v5"
+	//m["key6"] = "v6"
+	//m["key7"] = "v7"
+	//m["key8"] = "v8"
+	//m["key9"] = "v9"
+	//m["key10"] = "v10"
+	//pipeline := cluster.PipelineWithTrack()
+	//for k, v := range m {
+	//	pipeline.Eval(script1, []string{k}, v)
+	//	//pipeline.Eval(script2, []string{k, },  v)
+	//}
+	//_, e1 := pipeline.ExecWithTrack(xl, "script")
+	//fmt.Println(" ====> ", e1)
+	//pipeline.Close()
+
+	cluster.Set("k1", "v1", 0)
+	v1, e1 := cluster.Get("k1").Result()
+	xl.Info("k1's value:", v1, "   error等于redis.Nil？:", e1)
+
+	// test3
 
 }
 
 func main() {
 
 	test()
-	fmt.Println("hello world!")
+
 }

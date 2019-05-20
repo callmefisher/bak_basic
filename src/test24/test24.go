@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"github.com/pkg/errors"
 	"os"
 	"qiniu.com/pili-zeus/themisd.v1/model"
 	"regexp"
@@ -66,6 +67,13 @@ type Report struct {
 type ReportStream struct {
 	ID     string `json:"id"`     // ID: uid/stream
 	Stream string `json:"stream"` // 流名称
+}
+
+func getError() (err error) {
+
+	err = errors.New("all image test fail")
+	return nil
+
 }
 
 func main() {
@@ -151,5 +159,7 @@ func main() {
 	var startNano = time.Now().UnixNano()
 	//_  = arrar[0]
 	fmt.Println(time.Now().UnixNano() - startNano)
+
+	fmt.Println("===> ", getError())
 
 }

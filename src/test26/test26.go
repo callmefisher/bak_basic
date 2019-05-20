@@ -1,6 +1,7 @@
 package main
 
 import (
+	"bytes"
 	"fmt"
 	"math/rand"
 	"sync"
@@ -14,6 +15,12 @@ func runWorker(ch chan int, wg *sync.WaitGroup) {
 }
 
 func main() {
+
+	var buf bytes.Buffer
+	fmt.Println("bufff===>", buf.String())
+
+	var num float32 = 0.0
+	fmt.Println(num >= 0)
 
 	var wg sync.WaitGroup
 	var waitCount = 30
