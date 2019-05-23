@@ -40,6 +40,7 @@ func addTwoNumbers(p1 *ListNode, p2 *ListNode) *ListNode {
 	for ; p1 != nil && p2 != nil; p1 = p1.Next {
 
 		var saveNum = getRemainNum(p1.Val+p2.Val, &jinwei)
+
 		fillNode(&p3, saveNum)
 		p2 = p2.Next
 	
