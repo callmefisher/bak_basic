@@ -1,0 +1,6 @@
+#!/bin/bash
+target=$2
+file=$1
+GOOS=linux GOARCH=amd64 go build -o $target $file
+scp $target xiayanji@10.20.34.27:/home/xiayanji
+rm $target

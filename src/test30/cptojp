@@ -1,0 +1,2 @@
+#!/bin/bash
+scp $1 xiayanji@10.20.34.27:/home/xiayanji
