@@ -227,6 +227,7 @@ func AfterOrderTraverseTree(t *Tree) {
 	fmt.Println(t.Val)
 }
 
+// todo root先入栈, 右子树先进栈，然后左子树出栈
 func PreOrderTraverseTreeWithStack(root *Tree) {
 	if root == nil {
 		return
@@ -247,6 +248,7 @@ func PreOrderTraverseTreeWithStack(root *Tree) {
 	fmt.Println("")
 }
 
+// todo root顺着左子树，逐个入栈，直到叶子节点。出栈后，然后把右子树的所有左子树逐个入栈
 func MiddleTraverseTreeWithStack(root *Tree) {
 	if root == nil {
 		return
@@ -304,7 +306,7 @@ func EnablePop(t* Tree, m map[*Tree]bool) bool {
 	return flag2 && flag1
 }
 
-
+// todo 额外存储已经出栈过的节点信息，只有是叶子节点或者左右子树都为空的情况下，节点才能出栈
 func AfterTraverseWithStack(root *Tree) {
 
 	/*        1
@@ -350,7 +352,7 @@ func AfterTraverseWithStack(root *Tree) {
 }
 
 
-// 层次遍历
+// todo 层次遍历， 左子树先入队，右子树在入队
 func LevelTraverseTree(root* Tree) {
 	if root == nil {
 		return
@@ -370,7 +372,7 @@ func LevelTraverseTree(root* Tree) {
 	fmt.Println("")
 }
 
-//输出每层中的第一个节点
+//todo 输出每层中的第一个节点
 func LevelFirstNodeWay2(root *Tree) (high int) {
 	if root == nil {
 		return 0
@@ -443,6 +445,7 @@ func LevelFirstNode(root* Tree)  (high int){
 	
 }
 
+// todo high(left) > high(right) ? high(left) + 1 : high(right) + 1
 func GetTreeHigh(t * Tree)  (high int){
 	if t == nil {
 		return
@@ -456,6 +459,7 @@ func GetTreeHigh(t * Tree)  (high int){
 	return rightHigh + 1
 }
 
+// todo
 func ZigZagTree(t * Tree)  {
 	if t == nil {
 		return
