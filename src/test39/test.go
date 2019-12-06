@@ -49,8 +49,8 @@ func main() {
 	//}
 
 	mac := &qiniumac.Mac{
-		AccessKey: "ASs6_77Km5cDlZt7_K9eI1-P2z-_WMWwiPhT9fwk",
-		SecretKey: []byte("X6devmDVzYaiJGCi8BF46FU2bGdSZJN31oUV4BkA"),
+		AccessKey: "",
+		SecretKey: []byte(""),
 	}
 
 	//tp := qiniumac.NewTransport(mac, nil)
