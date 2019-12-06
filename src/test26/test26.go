@@ -2,10 +2,13 @@ package main
 
 import (
 	"bytes"
+	sha "crypto/sha1"
+	"encoding/binary"
 	"encoding/json"
 	"fmt"
 	"math/rand"
 	"path/filepath"
+	"strconv"
 	"sync"
 	"time"
 )
@@ -35,7 +38,27 @@ type Device struct {
 	Meta json.RawMessage `json:"meta,omitempty" bson:"meta,omitempty"`
 }
 
+func getHash(val []byte) []byte {
+	h := sha.New()
+	h.Write(val)
+	return h.Sum(nil)
+}
+
 func main() {
+	rand.Seed(time.Now().UnixNano())
+	var s1 []string
+	s1 = make([]string, 10, 10)
+	s1[0] = "1w"
+	s1[2] = "2"
+	s1[3] = "3"
+	s1[4] = "4"
+	s1 = append(s1, "5")
+
+	fmt.Println("===> ", len(s1), s1, "  rand: ", rand.Int()%10)
+
+	for i := 0; i < 10; i++ {
+		fmt.Println("====>", int(binary.LittleEndian.Uint32(getHash([]byte("dad"+strconv.Itoa(i))))%uint32(10)))
+	}
 
 	type Meta struct {
 		Mode  int      `json:"mode"`

@@ -7,10 +7,12 @@ import (
 	"net/http"
 	"time"
 )
+
 type Result struct {
 	r   *http.Response
 	err error
 }
+
 func process() {
 	ctx, cancel := context.WithTimeout(context.Background(), 2*time.Second)
 	//释放资源
@@ -29,7 +31,7 @@ func process() {
 	*/
 	go func() {
 		resp, err := client.Do(req)
-		
+
 		fmt.Println("============>", resp)
 		if resp != nil {
 			pack := Result{r: resp, err: err}
@@ -38,13 +40,13 @@ func process() {
 		} else {
 			cancel()
 		}
-	
+
 	}()
 	select {
 	case <-ctx.Done():
 		tr.CancelRequest(req)
-		er:= <-resultChan
-		fmt.Println("Timeout!",er.err)
+		er := <-resultChan
+		fmt.Println("Timeout!", er.err)
 	case res := <-resultChan:
 		defer res.r.Body.Close()
 		out, _ := ioutil.ReadAll(res.r.Body)
@@ -53,5 +55,10 @@ func process() {
 	return
 }
 func main() {
+
+	var num uint = 1
+
+	fmt.Println("num:", byte(num))
+
 	process()
 }
