@@ -1,0 +1,5 @@
+{OperationType:u NameSpace:pili.domaininfos Operation:map[$set:map[hub:jztest12] $v:1] UpdateOperation:map[_id:ObjectIdHex("5b6c164b243cebf875575779")]}
+{OperationType:u NameSpace:pili.domaininfos Operation:map[$set:map[hub:jztest13] $v:1] UpdateOperation:map[_id:ObjectIdHex("5b6c164b243cebf875575779")]}
+{OperationType:u NameSpace:test.vdnstats_sync_task Operation:map[$set:map[beginAt:2018-08-13 14:45:15.93 +0800 CST owner:node state:DOING] $v:1] UpdateOperation:map[_id:ObjectIdHex("5b7128fb0a40290ad8880e00")]}
+{OperationType:u NameSpace:test.vdnstats_sync_task Operation:map[$set:map[state:FAILED] $v:1] UpdateOperation:map[_id:ObjectIdHex("5b7128fb0a40290ad8880e00")]}
+ err2: <nil>  count: 4 done   map[op:u ts:map[$gt:6587665733897945088 $lt:6589096967324827648]]
